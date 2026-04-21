@@ -1,0 +1,4275 @@
+{
+  "rules": [
+    {
+      "code": "30.1",
+      "name": "Корабли, суда и лодки",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "in",
+            "value": [
+              "Vessel",
+              "Ship",
+              "Boat",
+              "FloatingStructure",
+              "Platform"
+            ]
+          }
+        ],
+        "description": "Объект является водным транспортным средством"
+      },
+      "level": 1
+    },
+    {
+      "code": "30.11",
+      "name": "Корабли, суда и плавучие конструкции",
+      "parent_code": "30.1",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "in",
+            "value": [
+              "Ship",
+              "Boat",
+              "FloatingStructure",
+              "Platform"
+            ]
+          }
+        ],
+        "description": "Объект является кораблем, судном или плавучей конструкцией"
+      },
+      "level": 2
+    },
+    {
+      "code": "30.11.1",
+      "name": "Корабли военные",
+      "parent_code": "30.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Ship"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "военное"
+          }
+        ],
+        "description": "Объект является военным кораблем"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.11.10",
+      "name": "Корабли военные",
+      "parent_code": "30.11.1",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Ship"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "военное"
+          },
+          {
+            "attribute": "military_equipment",
+            "operator": "exists",
+            "value": true
+          }
+        ],
+        "description": "Объект является военным кораблем с вооружением"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.10.000",
+      "name": "Корабли военные",
+      "parent_code": "30.11.10",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Ship"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "военное"
+          },
+          {
+            "attribute": "military_equipment",
+            "operator": "exists",
+            "value": true
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "in",
+            "value": [
+              "морское",
+              "речное",
+              "смешанное_река_море"
+            ]
+          }
+        ],
+        "description": "Объект является военным кораблем любого типа плавания"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.2",
+      "name": "Суда и аналогичные плавучие средства для перевозки людей или грузов",
+      "parent_code": "30.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Boat"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "purpose",
+                "operator": "equals",
+                "value": "пассажирское"
+              },
+              {
+                "attribute": "purpose",
+                "operator": "equals",
+                "value": "грузовое"
+              }
+            ]
+          }
+        ],
+        "description": "Объект является судном для перевозки пассажиров или грузов"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.11.21",
+      "name": "Суда круизные, суда экскурсионные и аналогичные плавучие средства для перевозки пассажиров; паромы всех типов",
+      "parent_code": "30.11.2",
+      "rule": {
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Пассажирское"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "specialization",
+                "operator": "equals",
+                "value": "круизный"
+              },
+              {
+                "attribute": "specialization",
+                "operator": "equals",
+                "value": "экскурсионный"
+              },
+              {
+                "attribute": "specialization",
+                "operator": "equals",
+                "value": "паром"
+              }
+            ]
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "navigation_area",
+                "operator": "equals",
+                "value": "речное"
+              },
+              {
+                "attribute": "navigation_area",
+                "operator": "equals",
+                "value": "морское"
+              }
+            ]
+          }
+        ]
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.21.110",
+      "name": "Суда морские пассажирские",
+      "parent_code": "30.11.21",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "PassengerBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "пассажирское"
+          }
+        ],
+        "description": "Объект является морским пассажирским судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.21.111",
+      "name": "Суда круизные морские",
+      "parent_code": "30.11.21.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "пассажирское"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "круизное"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "пассажиры"
+          }
+        ],
+        "description": "Объект является морским круизным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.21.112",
+      "name": "Суда экскурсионные морские",
+      "parent_code": "30.11.21.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "PassengerBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "экскурсионный"
+          }
+        ],
+        "description": "Объект является морским экскурсионным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.21.113",
+      "name": "Суда для обслуживания регулярных пассажирских линий морские",
+      "parent_code": "30.11.21.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "PassengerBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "regular_line",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является морским судном для регулярных пассажирских линий"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.21.114",
+      "name": "Паромы пассажирские морские",
+      "parent_code": "30.11.21.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "PassengerBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "паром"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "пассажирское"
+          }
+        ],
+        "description": "Объект является морским пассажирским паромом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.21.119",
+      "name": "Суда морские пассажирские прочие",
+      "parent_code": "30.11.21.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "PassengerBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "пассажирское"
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "specialization",
+                "operator": "not_equals",
+                "value": "круизный"
+              },
+              {
+                "attribute": "specialization",
+                "operator": "not_equals",
+                "value": "экскурсионный"
+              },
+              {
+                "attribute": "specialization",
+                "operator": "not_equals",
+                "value": "паром"
+              }
+            ]
+          }
+        ],
+        "description": "Объект является морским пассажирским судном (не круизным, не экскурсионным, не паромом)"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.21.120",
+      "name": "Суда речные пассажирские",
+      "parent_code": "30.11.21",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "PassengerBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "пассажирское"
+          }
+        ],
+        "description": "Объект является речным пассажирским судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.21.130",
+      "name": "Суда пассажирские смешанного плавания \"река - море\"",
+      "parent_code": "30.11.21",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "PassengerBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "смешанное_река_море"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "пассажирское"
+          }
+        ],
+        "description": "Объект является пассажирским судном смешанного плавания река-море"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.22",
+      "name": "Танкеры для перевозки нефти, нефтепродуктов химических продуктов, сжиженного газа",
+      "parent_code": "30.11.2",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "нефть",
+              "нефтепродукты",
+              "химические_продукты",
+              "сжиженный_газ"
+            ]
+          }
+        ],
+        "description": "Объект является танкером для перевозки жидких грузов"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.22.110",
+      "name": "Суда наливные морские",
+      "parent_code": "30.11.22",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "наливной"
+          }
+        ],
+        "description": "Объект является морским наливным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.22.111",
+      "name": "Танкеры морские для перевозки нефти и нефтепродуктов",
+      "parent_code": "30.11.22.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "нефть",
+              "нефтепродукты"
+            ]
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "танкер"
+          }
+        ],
+        "description": "Объект является морским танкером для нефти и нефтепродуктов"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.112",
+      "name": "Суда морские для перевозки химических продуктов",
+      "parent_code": "30.11.22.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "химические_продукты"
+          }
+        ],
+        "description": "Объект является морским танкером для химических продуктов"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.113",
+      "name": "Суда морские для перевозки сжиженных газов (газовозы)",
+      "parent_code": "30.11.22.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "in",
+            "value": [
+              "GasCarrier",
+              "Tanker"
+            ]
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "сжиженный_газ"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "газовоз"
+          },
+          {
+            "attribute": "temperature_control",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является морским газовозом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.119",
+      "name": "Суда морские для перевозки прочих жидких грузов",
+      "parent_code": "30.11.22.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "наливной"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "not_in",
+            "value": [
+              "нефть",
+              "нефтепродукты",
+              "химические_продукты",
+              "сжиженный_газ"
+            ]
+          }
+        ],
+        "description": "Объект является морским танкером для прочих жидких грузов"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.120",
+      "name": "Суда наливные речные",
+      "parent_code": "30.11.22",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "наливной"
+          }
+        ],
+        "description": "Объект является речным наливным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.22.121",
+      "name": "Танкеры речные для перевозки нефти и нефтепродуктов",
+      "parent_code": "30.11.22.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "нефть",
+              "нефтепродукты"
+            ]
+          }
+        ],
+        "description": "Объект является речным танкером для нефти и нефтепродуктов"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.122",
+      "name": "Суда речные для перевозки химических продуктов",
+      "parent_code": "30.11.22.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "химический_продукт"
+          }
+        ],
+        "description": "Объект является речным танкером для химических продуктов"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.123",
+      "name": "Суда речные для перевозки сжиженных газов (газовозы)",
+      "parent_code": "30.11.22.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "сжиженный_газ"
+          },
+          {
+            "attribute": "temperature_control",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является речным газовозом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.129",
+      "name": "Суда речные для перевозки прочих жидких грузов",
+      "parent_code": "30.11.22.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "наливной"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "not_in",
+            "value": [
+              "нефть",
+              "нефтепродукты",
+              "химический_продукт",
+              "сжиженный_газ"
+            ]
+          }
+        ],
+        "description": "Объект является речным танкером для прочих жидких грузов"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.22.130",
+      "name": "Суда наливные смешанного плавания \"река - море\"",
+      "parent_code": "30.11.22",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Tanker"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "смешанное_река_море"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "наливной"
+          }
+        ],
+        "description": "Объект является наливным судном смешанного плавания река-море"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.23",
+      "name": "Суда рефрижераторные, кроме танкеров",
+      "parent_code": "30.11.2",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Boat"
+          },
+          {
+            "attribute": "temperature_control",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "рефрижераторный"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "not_equals",
+            "value": "наливной"
+          }
+        ],
+        "description": "Объект является рефрижераторным судном (не танкером)"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.23.110",
+      "name": "Суда рефрижераторные морские, кроме танкеров",
+      "parent_code": "30.11.23",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Boat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "temperature_control",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "рефрижераторный"
+          }
+        ],
+        "description": "Объект является морским рефрижераторным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.23.120",
+      "name": "Суда рефрижераторные речные, кроме танкеров",
+      "parent_code": "30.11.23",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Boat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "temperature_control",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "рефрижераторный"
+          }
+        ],
+        "description": "Объект является речным рефрижераторным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.23.130",
+      "name": "Суда рефрижераторные смешанного плавания \"река - море\", кроме танкеров",
+      "parent_code": "30.11.23",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Boat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "смешанное_река_море"
+          },
+          {
+            "attribute": "temperature_control",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "рефрижераторный"
+          }
+        ],
+        "description": "Объект является рефрижераторным судном смешанного плавания река-море"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.24",
+      "name": "Суда сухогрузные",
+      "parent_code": "30.11.2",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Boat"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          }
+        ],
+        "description": "Объект является сухогрузным судном"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.24.110",
+      "name": "Суда сухогрузные морские",
+      "parent_code": "30.11.24",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          }
+        ],
+        "description": "Объект является морским сухогрузным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.24.111",
+      "name": "Суда сухогрузные морские общего назначения",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "сухогруз"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "not_in",
+            "value": [
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          }
+        ],
+        "description": "Объект является морским сухогрузным судном общего назначения"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.112",
+      "name": "Суда контейнерные морские",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "ContainerShip"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "контейнер"
+          }
+        ],
+        "description": "Объект является морским контейнеровозом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.113",
+      "name": "Суда трейлерные морские",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "трейлер"
+          },
+          {
+            "attribute": "ro_ro",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является морским трейлерным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.114",
+      "name": "Суда для перевозки навалочных грузов морские",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "BulkCarrier"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "навалочный"
+          }
+        ],
+        "description": "Объект является морским балкером"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.115",
+      "name": "Суда грузопассажирские морские",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "cargo_capacity",
+                "operator": "greater_than",
+                "value": 0
+              },
+              {
+                "attribute": "passenger_capacity",
+                "operator": "greater_than",
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "description": "Объект является морским грузопассажирским судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.116",
+      "name": "Суда морские грузовые комбинированные",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "комбинированная_погрузка"
+          }
+        ],
+        "description": "Объект является морским комбинированным грузовым судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.117",
+      "name": "Лесовозы морские",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TimberCarrier"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "equals",
+            "value": "лес"
+          }
+        ],
+        "description": "Объект является морским лесовозом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.118",
+      "name": "Паромы морские самоходные железнодорожные, автомобильно-транспортные",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Ferry"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "self_propelled",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "ro_ro",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "трейлер",
+              "автомобили",
+              "железнодорожный_подвижной_состав"
+            ]
+          }
+        ],
+        "description": "Объект является морским самоходным паромом для перевозки автомобилей или ж/д составов"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.119",
+      "name": "Суда сухогрузные морские прочие",
+      "parent_code": "30.11.24.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "is_instance_of",
+                "operator": "not_equals",
+                "value": "ContainerShip"
+              },
+              {
+                "attribute": "is_instance_of",
+                "operator": "not_equals",
+                "value": "TimberCarrier"
+              },
+              {
+                "attribute": "is_instance_of",
+                "operator": "not_equals",
+                "value": "BulkCarrier"
+              }
+            ]
+          }
+        ],
+        "description": "Объект является морским сухогрузным судном (не контейнеровозом, не лесовозом, не балкером)"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.120",
+      "name": "Суда сухогрузные речные",
+      "parent_code": "30.11.24",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          }
+        ],
+        "description": "Объект является речным сухогрузным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.24.121",
+      "name": "Суда сухогрузные речные самоходные",
+      "parent_code": "30.11.24.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "self_propelled",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          }
+        ],
+        "description": "Объект является речным самоходным сухогрузным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.122",
+      "name": "Суда сухогрузные речные несамоходные",
+      "parent_code": "30.11.24.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "self_propelled",
+            "operator": "equals",
+            "value": false
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          }
+        ],
+        "description": "Объект является речным несамоходным сухогрузным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.24.130",
+      "name": "Суда сухогрузные смешанного плавания \"река - море\"",
+      "parent_code": "30.11.24",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "DryCargoBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "смешанное_река_море"
+          },
+          {
+            "attribute": "cargo_type",
+            "operator": "in",
+            "value": [
+              "сухогруз",
+              "контейнер",
+              "трейлер",
+              "навалочный",
+              "лес"
+            ]
+          }
+        ],
+        "description": "Объект является сухогрузным судном смешанного плавания река-море"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.3",
+      "name": "Суда рыболовные и прочие суда специального назначения",
+      "parent_code": "30.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "purpose",
+                "operator": "equals",
+                "value": "рыболовное"
+              },
+              {
+                "attribute": "purpose",
+                "operator": "equals",
+                "value": "специальное"
+              }
+            ]
+          }
+        ],
+        "description": "Объект является рыболовным судном или судном специального назначения"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.11.31",
+      "name": "Суда рыболовные; суда-рыбозаводы и прочие суда для переработки или консервирования рыбных продуктов",
+      "parent_code": "30.11.3",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "fishing_method",
+                "operator": "exists",
+                "value": true
+              },
+              {
+                "attribute": "catch_processing",
+                "operator": "equals",
+                "value": true
+              },
+              {
+                "attribute": "factory_ship",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "description": "Объект является рыболовным судном или судном для переработки улова"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.31.110",
+      "name": "Суда рыболовные",
+      "parent_code": "30.11.31",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "exists",
+            "value": true
+          }
+        ],
+        "description": "Объект является рыболовным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.31.111",
+      "name": "Траулеры",
+      "parent_code": "30.11.31.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Trawler"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "equals",
+            "value": "траловый"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          }
+        ],
+        "description": "Объект является траулером"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.31.112",
+      "name": "Дрифтеры",
+      "parent_code": "30.11.31.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingBoat"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "equals",
+            "value": "дрейфовый"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          }
+        ],
+        "description": "Объект является дрифтером"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.31.113",
+      "name": "Сейнеры",
+      "parent_code": "30.11.31.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Seiner"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "equals",
+            "value": "кошельковый"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          }
+        ],
+        "description": "Объект является сейнером"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.31.114",
+      "name": "Ярусники",
+      "parent_code": "30.11.31.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Longliner"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "equals",
+            "value": "ярусный"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          }
+        ],
+        "description": "Объект является ярусником"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.31.115",
+      "name": "Суда китобойные",
+      "parent_code": "30.11.31.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Whaler"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "equals",
+            "value": "китобойный"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          },
+          {
+            "attribute": "target_species",
+            "operator": "contains",
+            "value": "киты"
+          }
+        ],
+        "description": "Объект является китобойным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.31.116",
+      "name": "Суда зверобойные",
+      "parent_code": "30.11.31.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingBoat"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "equals",
+            "value": "зверобойный"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          },
+          {
+            "attribute": "target_species",
+            "operator": "contains",
+            "value": "морские_животные"
+          }
+        ],
+        "description": "Объект является зверобойным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.31.119",
+      "name": "Суда рыболовные прочие",
+      "parent_code": "30.11.31.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          },
+          {
+            "attribute": "fishing_method",
+            "operator": "not_in",
+            "value": [
+              "траловый",
+              "кошельковый",
+              "ярусный",
+              "дрейфовый",
+              "китобойный",
+              "зверобойный"
+            ]
+          }
+        ],
+        "description": "Объект является рыболовным судном (не траулером, не сейнером, не ярусником, не дрифтером, не китобойным, не зверобойным)"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.31.120",
+      "name": "Суда-рыбозаводы",
+      "parent_code": "30.11.31",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingFactory"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "переработка"
+          }
+        ],
+        "description": "Объект является судном-рыбозаводом"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.31.130",
+      "name": "Суда рыбопромыслового флота, предназначенные для добычи (вылова) краба",
+      "parent_code": "30.11.31",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          },
+          {
+            "attribute": "target_species",
+            "operator": "contains",
+            "value": "краб"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "краболовные_снасти"
+          }
+        ],
+        "description": "Объект является судном для добычи краба"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.31.190",
+      "name": "Суда прочие для переработки или консервирования рыбных продуктов",
+      "parent_code": "30.11.31",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FishingBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "рыболовное"
+          },
+          {
+            "attribute": "catch_processing",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "factory_ship",
+            "operator": "equals",
+            "value": false
+          }
+        ],
+        "description": "Объект является судном для переработки или консервирования рыбных продуктов"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.32",
+      "name": "Буксиры и суда-толкачи",
+      "parent_code": "30.11.3",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "in",
+            "value": [
+              "TugBoat"
+            ]
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "буксирное",
+              "толкачное"
+            ]
+          }
+        ],
+        "description": "Объект является буксиром или толкачом"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.32.110",
+      "name": "Суда морские буксирные",
+      "parent_code": "30.11.32",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "буксир"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "буксирное",
+              "толкачное"
+            ]
+          }
+        ],
+        "description": "Объект является морским буксирным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.32.111",
+      "name": "Буксиры морские",
+      "parent_code": "30.11.32.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "буксирное"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "буксир"
+          }
+        ],
+        "description": "Объект является морским буксиром"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.112",
+      "name": "Буксиры рейдовые",
+      "parent_code": "30.11.32.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "рейдовое"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "буксирное"
+          }
+        ],
+        "description": "Объект является рейдовым буксиром"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.113",
+      "name": "Буксиры портовые",
+      "parent_code": "30.11.32.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "портовое"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "буксирное"
+          }
+        ],
+        "description": "Объект является портовым буксиром"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.114",
+      "name": "Буксиры морские спасательные",
+      "parent_code": "30.11.32.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "спасательный"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "спасательное"
+          }
+        ],
+        "description": "Объект является морским спасательным буксиром"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.115",
+      "name": "Суда-толкачи морские",
+      "parent_code": "30.11.32.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "tug_type",
+            "operator": "equals",
+            "value": "толкач"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "толкачное"
+          }
+        ],
+        "description": "Объект является морским судном-толкачом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.116",
+      "name": "Буксиры-толкачи морские",
+      "parent_code": "30.11.32.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "tug_type",
+            "operator": "equals",
+            "value": "буксир_толкач"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "буксирное",
+              "толкачное"
+            ]
+          }
+        ],
+        "description": "Объект является морским буксиром-толкачом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.120",
+      "name": "Суда буксирные речные",
+      "parent_code": "30.11.32",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "in",
+            "value": [
+              "речное",
+              "озерное"
+            ]
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "буксирное",
+              "толкачное"
+            ]
+          }
+        ],
+        "description": "Объект является речным буксирным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.32.121",
+      "name": "Буксиры речные",
+      "parent_code": "30.11.32.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "tug_type",
+            "operator": "equals",
+            "value": "буксир"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "буксирное"
+          }
+        ],
+        "description": "Объект является речным буксиром"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.122",
+      "name": "Суда-толкачи речные, озерные",
+      "parent_code": "30.11.32.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "in",
+            "value": [
+              "речное",
+              "озерное"
+            ]
+          },
+          {
+            "attribute": "tug_type",
+            "operator": "equals",
+            "value": "толкач"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "толкачное"
+          }
+        ],
+        "description": "Объект является речным или озерным судном-толкачом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.123",
+      "name": "Буксиры-толкачи речные",
+      "parent_code": "30.11.32.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "TugBoat"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          },
+          {
+            "attribute": "tug_type",
+            "operator": "equals",
+            "value": "буксир_толкач"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "буксирное",
+              "толкачное"
+            ]
+          }
+        ],
+        "description": "Объект является речным буксиром-толкачом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.32.130",
+      "name": "Катера судовые буксирные",
+      "parent_code": "30.11.32",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Boat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "катер"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "буксирное"
+          }
+        ],
+        "description": "Объект является буксирным катером"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.33",
+      "name": "Земснаряды; плавучие маяки, плавучие краны; прочие суда",
+      "parent_code": "30.11.3",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "is_instance_of",
+                "operator": "equals",
+                "value": "Dredger"
+              },
+              {
+                "attribute": "is_instance_of",
+                "operator": "equals",
+                "value": "FloatingStructure"
+              },
+              {
+                "attribute": "specialization",
+                "operator": "in",
+                "value": [
+                  "промерный",
+                  "гидрографический",
+                  "буксирный",
+                  "пожарный",
+                  "лоцмейстерский",
+                  "снабжение",
+                  "обслуживание"
+                ]
+              }
+            ]
+          }
+        ],
+        "description": "Объект является специальным судном (земснарядом, маяком, краном и т.д.)"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.33.110",
+      "name": "Земснаряды",
+      "parent_code": "30.11.33",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Dredger"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "земснарядное_оборудование"
+          }
+        ],
+        "description": "Объект является земснарядом"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.33.120",
+      "name": "Маяки плавучие",
+      "parent_code": "30.11.33",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "маяк"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "навигационное"
+          },
+          {
+            "attribute": "anchored",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является плавучим маяком"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.33.130",
+      "name": "Суда пожарные",
+      "parent_code": "30.11.33",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "пожарный"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "пожарное_оборудование"
+          }
+        ],
+        "description": "Объект является пожарным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.33.140",
+      "name": "Краны плавучие",
+      "parent_code": "30.11.33",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "кран"
+          }
+        ],
+        "description": "Объект является плавучим краном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.33.190",
+      "name": "Суда прочие",
+      "parent_code": "30.11.33",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "not_in",
+            "value": [
+              "буксирное",
+              "толкачное",
+              "рыболовное",
+              "пожарное",
+              "земснарядное",
+              "гидрографическое",
+              "промерное",
+              "лоцмейстерское",
+              "снабжение",
+              "обслуживание"
+            ]
+          }
+        ],
+        "description": "Объект является специальным судном (не включенным в другие категории)"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.33.191",
+      "name": "Суда промерные",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "промерный"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "промерное_оборудование"
+          }
+        ],
+        "description": "Объект является промерным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.33.192",
+      "name": "Суда навигационно-гидрографического обеспечения",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "in",
+            "value": [
+              "промерный",
+              "гидрографический"
+            ]
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "гидрографическое_оборудование"
+          }
+        ],
+        "description": "Объект является судном навигационно-гидрографического обеспечения"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.33.193",
+      "name": "Буровые суда",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "буровой"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "drilling_equipment",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является буровым судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.33.194",
+      "name": "Многофункциональные вспомогательные суда",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "in",
+            "value": [
+              "снабжение",
+              "обслуживание",
+              "вспомогательный"
+            ]
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "count_greater_than",
+            "value": 2
+          }
+        ],
+        "description": "Объект является многофункциональным вспомогательным судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.33.195",
+      "name": "Суда лоцмейстерские",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "лоцмейстерский"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "in",
+            "value": [
+              "морское",
+              "речное"
+            ]
+          }
+        ],
+        "description": "Объект является лоцмейстерским судном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.33.196",
+      "name": "Суда обслуживающего флота",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "обслуживание"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "обслуживающее_оборудование"
+          }
+        ],
+        "description": "Объект является судном обслуживающего флота"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.33.197",
+      "name": "Суда снабжения",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "specialization",
+            "operator": "equals",
+            "value": "снабжение"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "cargo_capacity",
+            "operator": "greater_than",
+            "value": 0
+          }
+        ],
+        "description": "Объект является судном снабжения"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.33.199",
+      "name": "Суда прочие, не включенные в другие группировки",
+      "parent_code": "30.11.33.190",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "SpecialBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "specialization",
+                "operator": "not_in",
+                "value": [
+                  "буксирное",
+                  "толкачное",
+                  "рыболовное",
+                  "пожарное",
+                  "земснарядное",
+                  "гидрографическое",
+                  "промерное",
+                  "лоцмейстерское",
+                  "снабжение",
+                  "обслуживание",
+                  "буровой"
+                ]
+              },
+              {
+                "attribute": "is_instance_of",
+                "operator": "not_equals",
+                "value": "Dredger"
+              },
+              {
+                "attribute": "is_instance_of",
+                "operator": "not_equals",
+                "value": "FloatingStructure"
+              }
+            ]
+          }
+        ],
+        "description": "Объект является специальным судном (не включенным в другие группировки)"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.4",
+      "name": "Платформы плавучие или погружные и инфраструктура",
+      "parent_code": "30.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Platform"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "platform_type",
+                "operator": "in",
+                "value": [
+                  "буровая",
+                  "космическая",
+                  "многофункциональная",
+                  "вспомогательная"
+                ]
+              },
+              {
+                "attribute": "submersible",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "description": "Объект является плавучей или погружной платформой"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.11.40",
+      "name": "Платформы плавучие или погружные и инфраструктура",
+      "parent_code": "30.11.4",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Platform"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "platform_type",
+                "operator": "in",
+                "value": [
+                  "буровая",
+                  "космическая",
+                  "многофункциональная",
+                  "вспомогательная"
+                ]
+              },
+              {
+                "attribute": "submersible",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "description": "Объект является плавучей или погружной платформой"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.40.000",
+      "name": "Платформы плавучие или погружные и инфраструктура",
+      "parent_code": "30.11.4",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Platform"
+          },
+          {
+            "logic": "OR",
+            "conditions": [
+              {
+                "attribute": "platform_type",
+                "operator": "in",
+                "value": [
+                  "буровая",
+                  "космическая",
+                  "многофункциональная",
+                  "вспомогательная"
+                ]
+              },
+              {
+                "attribute": "submersible",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "description": "Объект является плавучей или погружной платформой"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.5",
+      "name": "Конструкции плавучие прочие (включая плоты, понтоны, кессоны, дебаркадеры, буи и бакены)",
+      "parent_code": "30.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "специальное",
+              "портовое",
+              "строительное",
+              "навигационное"
+            ]
+          }
+        ],
+        "description": "Объект является плавучей конструкцией специального назначения"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.11.50",
+      "name": "Конструкции плавучие прочие (включая плоты, понтоны, кессоны, дебаркадеры, буи и бакены)",
+      "parent_code": "30.11.5",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "специальное",
+              "портовое",
+              "строительное",
+              "навигационное"
+            ]
+          }
+        ],
+        "description": "Объект является плавучей конструкцией специального назначения"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.50.110",
+      "name": "Плоты",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "плот"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "специальное",
+              "транспортное"
+            ]
+          }
+        ],
+        "description": "Объект является плотом"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.50.111",
+      "name": "Спасательные плоты",
+      "parent_code": "30.11.50.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "плот"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "спасательное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "спасательное_снаряжение"
+          }
+        ],
+        "description": "Объект является спасательным плотом"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.50.119",
+      "name": "Плоты прочие",
+      "parent_code": "30.11.50.110",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "плот"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "not_equals",
+            "value": "спасательное"
+          }
+        ],
+        "description": "Объект является плотом (не спасательным)"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.50.120",
+      "name": "Понтоны",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "понтон"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "специальное",
+              "транспортное",
+              "строительное"
+            ]
+          }
+        ],
+        "description": "Объект является понтоном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.50.121",
+      "name": "Понтоны речные",
+      "parent_code": "30.11.50.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "понтон"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "речное"
+          }
+        ],
+        "description": "Объект является речным понтоном"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.50.122",
+      "name": "Понтон для плавучего крана",
+      "parent_code": "30.11.50.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "понтон"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "крановое_оборудование"
+          }
+        ],
+        "description": "Объект является понтоном для плавучего крана"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.50.129",
+      "name": "Понтоны прочие",
+      "parent_code": "30.11.50.120",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "понтон"
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "navigation_area",
+                "operator": "not_equals",
+                "value": "речное"
+              },
+              {
+                "attribute": "special_equipment",
+                "operator": "not_contains",
+                "value": "крановое_оборудование"
+              }
+            ]
+          }
+        ],
+        "description": "Объект является понтоном (не речным, не для крана)"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.11.50.130",
+      "name": "Кессоны",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "кессон"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "строительное",
+              "специальное"
+            ]
+          }
+        ],
+        "description": "Объект является кессоном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.50.140",
+      "name": "Дебаркадеры",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "дебаркадер"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          }
+        ],
+        "description": "Объект является дебаркадером"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.50.150",
+      "name": "Буи и бакены",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "in",
+            "value": [
+              "буи",
+              "бакены"
+            ]
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "навигационное"
+          },
+          {
+            "attribute": "anchored",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является буем или бакеном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.50.160",
+      "name": "Платформы и конструкции морские плавучие для подготовки к пуску и запуску ракет космического назначения",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "Platform"
+          },
+          {
+            "attribute": "navigation_area",
+            "operator": "equals",
+            "value": "морское"
+          },
+          {
+            "attribute": "platform_type",
+            "operator": "equals",
+            "value": "космическая"
+          },
+          {
+            "attribute": "launch_facility",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "специальное"
+          }
+        ],
+        "description": "Объект является морской плавучей платформой для запуска ракет космического назначения"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.50.170",
+      "name": "Причалы плавучие",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "equals",
+            "value": "причал"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "портовое"
+          },
+          {
+            "attribute": "anchored",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является плавучим причалом"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.50.190",
+      "name": "Конструкции плавучие прочие, не включенные в другие группировки",
+      "parent_code": "30.11.50",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "FloatingStructure"
+          },
+          {
+            "attribute": "structure_type",
+            "operator": "not_in",
+            "value": [
+              "плот",
+              "понтон",
+              "кессон",
+              "дебаркадер",
+              "буи",
+              "бакены",
+              "причал"
+            ]
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "специальное",
+              "портовое",
+              "строительное",
+              "навигационное"
+            ]
+          }
+        ],
+        "description": "Объект является плавучей конструкцией (не включенной в другие группировки)"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.9",
+      "name": "Услуги по переоборудованию, восстановлению и оснащению судов, плавучих платформ и конструкций; операции процесса производства судов и плавучих конструкций отдельные, выполняемые субподрядчиком",
+      "parent_code": "30.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "in",
+            "value": [
+              "переоборудование",
+              "восстановление",
+              "оснащение",
+              "производство_отдельное"
+            ]
+          },
+          {
+            "attribute": "object_type",
+            "operator": "in",
+            "value": [
+              "судно",
+              "платформа",
+              "плавучая_конструкция"
+            ]
+          }
+        ],
+        "description": "Объект является услугой по переоборудованию, восстановлению, оснащению или отдельной операцией производства судов и плавучих конструкций"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.11.91",
+      "name": "Услуги по переоборудованию и восстановлению судов, плавучих платформ и конструкций",
+      "parent_code": "30.11.9",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "in",
+            "value": [
+              "переоборудование",
+              "восстановление"
+            ]
+          },
+          {
+            "attribute": "object_type",
+            "operator": "in",
+            "value": [
+              "судно",
+              "платформа",
+              "плавучая_конструкция"
+            ]
+          }
+        ],
+        "description": "Объект является услугой по переоборудованию или восстановлению судов, платформ или плавучих конструкций"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.91.000",
+      "name": "Услуги по переоборудованию и восстановлению судов, плавучих платформ и конструкций",
+      "parent_code": "30.11.91",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "in",
+            "value": [
+              "переоборудование",
+              "восстановление"
+            ]
+          },
+          {
+            "attribute": "object_type",
+            "operator": "in",
+            "value": [
+              "судно",
+              "платформа",
+              "плавучая_конструкция"
+            ]
+          },
+          {
+            "attribute": "service_scope",
+            "operator": "exists",
+            "value": true
+          }
+        ],
+        "description": "Объект является услугой по переоборудованию или восстановлению судов, платформ или плавучих конструкций"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.92",
+      "name": "Услуги по оснащению судов, плавучих платформ и конструкций",
+      "parent_code": "30.11.9",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "equals",
+            "value": "оснащение"
+          },
+          {
+            "attribute": "object_type",
+            "operator": "in",
+            "value": [
+              "судно",
+              "платформа",
+              "плавучая_конструкция"
+            ]
+          }
+        ],
+        "description": "Объект является услугой по оснащению судов, платформ или плавучих конструкций"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.92.000",
+      "name": "Услуги по оснащению судов, плавучих платформ и конструкций",
+      "parent_code": "30.11.92",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "equals",
+            "value": "оснащение"
+          },
+          {
+            "attribute": "object_type",
+            "operator": "in",
+            "value": [
+              "судно",
+              "платформа",
+              "плавучая_конструкция"
+            ]
+          },
+          {
+            "attribute": "equipment_type",
+            "operator": "exists",
+            "value": true
+          }
+        ],
+        "description": "Объект является услугой по оснащению судов, платформ или плавучих конструкций"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.11.99",
+      "name": "Операции процесса производства судов и плавучих конструкций отдельные, выполняемые субподрядчиком",
+      "parent_code": "30.11.9",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "equals",
+            "value": "производство_отдельное"
+          },
+          {
+            "attribute": "object_type",
+            "operator": "in",
+            "value": [
+              "судно",
+              "платформа",
+              "плавучая_конструкция"
+            ]
+          },
+          {
+            "attribute": "contractor_type",
+            "operator": "equals",
+            "value": "субподрядчик"
+          }
+        ],
+        "description": "Объект является отдельной операцией процесса производства судов или плавучих конструкций, выполняемой субподрядчиком"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.11.99.000",
+      "name": "Операции процесса производства судов и плавучих конструкций отдельные, выполняемые субподрядчиком",
+      "parent_code": "30.11.99",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "equals",
+            "value": "производство_отдельное"
+          },
+          {
+            "attribute": "object_type",
+            "operator": "in",
+            "value": [
+              "судно",
+              "платформа",
+              "плавучая_конструкция"
+            ]
+          },
+          {
+            "attribute": "contractor_type",
+            "operator": "equals",
+            "value": "субподрядчик"
+          },
+          {
+            "attribute": "operation_type",
+            "operator": "exists",
+            "value": true
+          }
+        ],
+        "description": "Объект является отдельной операцией процесса производства судов или плавучих конструкций, выполняемой субподрядчиком"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12",
+      "name": "Суда прогулочные и спортивные",
+      "parent_code": "30.1",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "прогулочное",
+              "спортивное"
+            ]
+          }
+        ],
+        "description": "Объект является прогулочным или спортивным судном"
+      },
+      "level": 2
+    },
+    {
+      "code": "30.12.1",
+      "name": "Суда прогулочные и спортивные",
+      "parent_code": "30.12",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "прогулочное",
+              "спортивное"
+            ]
+          },
+          {
+            "attribute": "size_category",
+            "operator": "in",
+            "value": [
+              "маломерное",
+              "среднее",
+              "крупное"
+            ]
+          }
+        ],
+        "description": "Объект является прогулочным или спортивным судном любого размера"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.12.11",
+      "name": "Суда парусные (кроме надувных) прогулочные или спортивные со вспомогательным двигателем или без него",
+      "parent_code": "30.12.1",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "propulsion_type",
+            "operator": "equals",
+            "value": "парусное"
+          },
+          {
+            "attribute": "inflatable",
+            "operator": "not_equals",
+            "value": true
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "прогулочное",
+              "спортивное"
+            ]
+          }
+        ],
+        "description": "Объект является парусным судном (не надувным) прогулочного или спортивного назначения"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.12.11.110",
+      "name": "Суда парусные (кроме надувных) прогулочные со вспомогательным двигателем или без него",
+      "parent_code": "30.12.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "propulsion_type",
+            "operator": "equals",
+            "value": "парусное"
+          },
+          {
+            "attribute": "inflatable",
+            "operator": "not_equals",
+            "value": true
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "прогулочное"
+          }
+        ],
+        "description": "Объект является парусным прогулочным судном (не надувным)"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.11.120",
+      "name": "Суда парусные спортивные со вспомогательным двигателем или без него",
+      "parent_code": "30.12.11",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "propulsion_type",
+            "operator": "equals",
+            "value": "парусное"
+          },
+          {
+            "attribute": "inflatable",
+            "operator": "not_equals",
+            "value": true
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "спортивное"
+          },
+          {
+            "attribute": "sports_purpose",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является парусным спортивным судном (не надувным)"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.12",
+      "name": "Суда надувные прогулочные или спортивные",
+      "parent_code": "30.12.1",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "inflatable",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "прогулочное",
+              "спортивное"
+            ]
+          }
+        ],
+        "description": "Объект является надувным прогулочным или спортивным судном"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.12.12.110",
+      "name": "Суда надувные прогулочные",
+      "parent_code": "30.12.12",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "inflatable",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "прогулочное"
+          }
+        ],
+        "description": "Объект является надувным прогулочным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.12.120",
+      "name": "Суда надувные спортивные",
+      "parent_code": "30.12.12",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "inflatable",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "спортивное"
+          },
+          {
+            "attribute": "sports_purpose",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является надувным спортивным судном"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.19",
+      "name": "Суда прогулочные или спортивные прочие; лодки гребные, шлюпки и каноэ",
+      "parent_code": "30.12.1",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "прогулочное",
+              "спортивное"
+            ]
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "propulsion_type",
+                "operator": "not_equals",
+                "value": "парусное"
+              },
+              {
+                "attribute": "inflatable",
+                "operator": "not_equals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "description": "Объект является прогулочным или спортивным судном (не парусным, не надувным)"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.12.19.110",
+      "name": "Суда прогулочные прочие",
+      "parent_code": "30.12.19",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "прогулочное"
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "propulsion_type",
+                "operator": "not_equals",
+                "value": "парусное"
+              },
+              {
+                "attribute": "inflatable",
+                "operator": "not_equals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "description": "Объект является прогулочным судном (не парусным, не надувным)"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.19.120",
+      "name": "Суда спортивные прочие",
+      "parent_code": "30.12.19",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "спортивное"
+          },
+          {
+            "attribute": "sports_purpose",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "propulsion_type",
+                "operator": "not_equals",
+                "value": "парусное"
+              },
+              {
+                "attribute": "inflatable",
+                "operator": "not_equals",
+                "value": true
+              }
+            ]
+          }
+        ],
+        "description": "Объект является спортивным судном (не парусным, не надувным)"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.19.130",
+      "name": "Лодки гребные",
+      "parent_code": "30.12.19",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "прогулочное",
+              "спортивное"
+            ]
+          },
+          {
+            "attribute": "rowing",
+            "operator": "equals",
+            "value": true
+          },
+          {
+            "attribute": "self_propelled",
+            "operator": "equals",
+            "value": false
+          }
+        ],
+        "description": "Объект является гребной лодкой"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.19.140",
+      "name": "Шлюпки",
+      "parent_code": "30.12.19",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "vessel_type",
+            "operator": "equals",
+            "value": "шлюпка"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "спасательное",
+              "вспомогательное"
+            ]
+          }
+        ],
+        "description": "Объект является шлюпкой"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.19.141",
+      "name": "Шлюпки спасательные",
+      "parent_code": "30.12.19.140",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "vessel_type",
+            "operator": "equals",
+            "value": "шлюпка"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "спасательное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "спасательное_снаряжение"
+          }
+        ],
+        "description": "Объект является спасательной шлюпкой"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.12.19.142",
+      "name": "Шлюпки спасательные танкерного типа",
+      "parent_code": "30.12.19.140",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "vessel_type",
+            "operator": "equals",
+            "value": "шлюпка"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "спасательное"
+          },
+          {
+            "attribute": "special_equipment",
+            "operator": "contains",
+            "value": "спасательное_снаряжение"
+          },
+          {
+            "attribute": "fire_protection",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является спасательной шлюпкой танкерного типа"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.12.19.143",
+      "name": "Дежурные шлюпки",
+      "parent_code": "30.12.19.140",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "vessel_type",
+            "operator": "equals",
+            "value": "шлюпка"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "equals",
+            "value": "вспомогательное"
+          },
+          {
+            "attribute": "duty_equipment",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является дежурной шлюпкой"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.12.19.149",
+      "name": "Шлюпки прочие",
+      "parent_code": "30.12.19.140",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "vessel_type",
+            "operator": "equals",
+            "value": "шлюпка"
+          },
+          {
+            "logic": "AND",
+            "conditions": [
+              {
+                "attribute": "purpose",
+                "operator": "not_equals",
+                "value": "спасательное"
+              },
+              {
+                "attribute": "purpose",
+                "operator": "not_equals",
+                "value": "вспомогательное"
+              }
+            ]
+          }
+        ],
+        "description": "Объект является шлюпкой (не спасательной, не дежурной)"
+      },
+      "level": 6
+    },
+    {
+      "code": "30.12.19.150",
+      "name": "Каноэ",
+      "parent_code": "30.12.19",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "is_instance_of",
+            "operator": "equals",
+            "value": "RecreationalBoat"
+          },
+          {
+            "attribute": "vessel_type",
+            "operator": "equals",
+            "value": "каноэ"
+          },
+          {
+            "attribute": "purpose",
+            "operator": "in",
+            "value": [
+              "спортивное",
+              "прогулочное"
+            ]
+          },
+          {
+            "attribute": "rowing",
+            "operator": "equals",
+            "value": true
+          }
+        ],
+        "description": "Объект является каноэ"
+      },
+      "level": 5
+    },
+    {
+      "code": "30.12.9",
+      "name": "Услуги по производству прогулочных или спортивных судов отдельные, выполняемые субподрядчиком",
+      "parent_code": "30.12",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "equals",
+            "value": "производство_отдельное"
+          },
+          {
+            "attribute": "object_type",
+            "operator": "equals",
+            "value": "прогулочное_спортивное_судно"
+          },
+          {
+            "attribute": "contractor_type",
+            "operator": "equals",
+            "value": "субподрядчик"
+          }
+        ],
+        "description": "Объект является отдельной операцией производства прогулочных или спортивных судов, выполняемой субподрядчиком"
+      },
+      "level": 3
+    },
+    {
+      "code": "30.12.99",
+      "name": "Услуги по производству прогулочных или спортивных судов отдельные, выполняемые субподрядчиком",
+      "parent_code": "30.12.9",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "equals",
+            "value": "производство_отдельное"
+          },
+          {
+            "attribute": "object_type",
+            "operator": "equals",
+            "value": "прогулочное_спортивное_судно"
+          },
+          {
+            "attribute": "contractor_type",
+            "operator": "equals",
+            "value": "субподрядчик"
+          },
+          {
+            "attribute": "operation_type",
+            "operator": "exists",
+            "value": true
+          }
+        ],
+        "description": "Объект является отдельной операцией производства прогулочных или спортивных судов, выполняемой субподрядчиком"
+      },
+      "level": 4
+    },
+    {
+      "code": "30.12.99.000",
+      "name": "Услуги по производству прогулочных или спортивных судов отдельные, выполняемые субподрядчиком",
+      "parent_code": "30.12.99",
+      "rule": {
+        "type": "necessary_and_sufficient",
+        "conditions": [
+          {
+            "attribute": "service_type",
+            "operator": "equals",
+            "value": "производство_отдельное"
+          },
+          {
+            "attribute": "object_type",
+            "operator": "equals",
+            "value": "прогулочное_спортивное_судно"
+          },
+          {
+            "attribute": "contractor_type",
+            "operator": "equals",
+            "value": "субподрядчик"
+          },
+          {
+            "attribute": "operation_type",
+            "operator": "exists",
+            "value": true
+          },
+          {
+            "attribute": "service_scope",
+            "operator": "exists",
+            "value": true
+          }
+        ],
+        "description": "Объект является отдельной операцией производства прогулочных или спортивных судов, выполняемой субподрядчиком"
+      },
+      "level": 5
+    }
+  ]
+}
