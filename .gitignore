@@ -1,3 +1,1 @@
-# Examples 1:
-
-# Example 2 (Project with artifacts):
+Nothing should be ignored based on the provided file changes. The only modified file is LOGIC_DOCUMENTATION.md, which is a documentation file and should not be ignored.
