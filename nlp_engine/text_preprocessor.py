@@ -2,7 +2,10 @@ import re
 from typing import Tuple, Any, List, Set, Dict
 
 from nltk.corpus import stopwords
-from pymorphy2 import MorphAnalyzer
+try:
+    from pymorphy3 import MorphAnalyzer
+except ImportError:
+    from pymorphy2 import MorphAnalyzer
 from config import settings
 
 
