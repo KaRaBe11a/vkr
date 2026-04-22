@@ -1,17 +1,24 @@
 ```
-# Compiled and build artifacts
-*.pyc
+# Python cache
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Compiled and build artifacts
+*.o
+*.obj
+*.out
+*.so
+*.dll
+*.exe
 
 # Dependencies
 .venv/
 venv/
-node_modules/
-*.egg-info/
-dist/
-build/
-target/
-.gradle/
+env/
+lib/
+bin/
 
 # Logs and temp files
 *.log
@@ -19,46 +26,23 @@ target/
 *.swp
 *.swo
 
-# Environment
+# Environment variables
 .env
 .env.local
 *.env.*
 
-# Editors
+# Coverage reports
+.coverage
+coverage/
+htmlcov/
+
+# IDE specific
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
+# OS generated files
 .DS_Store
 Thumbs.db
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# Python specific
-*.pyc
-__pycache__/
-*.pyo
-*.pyd
-.Python
-*.so
-
-# Testing
-.pytest_cache/
-.mypy_cache/
-.hypothesis/
-
-# Distribution / packaging
-*.tar.gz
-*.whl
-*.zip
-
-# Local configuration
-.env*
-!.env.example
-config/local.*
 ```
