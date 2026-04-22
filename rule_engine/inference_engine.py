@@ -94,63 +94,11 @@ class InferenceEngine:
             use_hierarchical: Если True - используется поэтапная иерархическая классификация,
                              если False - классификация по всем правилам сразу
         """
-
-        if text in self.cache:
-            cached_result = self.cache[text]
-            # Возвращаем кэшированный результат, но учитываем текущий режим
-            if use_hierarchical:
-                return cached_result
-            else:
-                # Для не-иерархического режима пересчитываем только matched_rules
-                features = feature_extractor.extract_features(text)
-                matched_rules = self.rule_matcher.match_rules(features)
-                
-                result = {
-                    'original_text': text,
-                    'features': features,
-                    'matched_rules': [],
-                    'best_match': None,
-                    'confidence': 0.0,
-                    'alternatives': [],
-                    'classification_path': []
-                }
-                
-                for rule, match_ratio in matched_rules:
-                    rule_results = {
-                        'code': rule['code'],
-                        'name': rule['name'],
-                        'match_ratio': match_ratio,
-                        'parent_code': rule.get('parent_code'),
-                        'level': rule['level'],
-                        'description': rule['rule'].get('description', ''),
-                        'rule': rule['rule'],
-                    }
-                    result['matched_rules'].append(rule_results)
-                
-                if matched_rules:
-                    best_rule, best_ratio = max(matched_rules, key=lambda x: x[1])
-                    result['best_match'] = {
-                        'code': best_rule['code'],
-                        'name': best_rule['name'],
-                        'match_ratio': best_ratio,
-                        'parent_code': best_rule.get('parent_code'),
-                        'level': best_rule['level'],
-                        'description': best_rule['rule'].get('description', '')
-                    }
-                    result['confidence'] = best_ratio
-                    
-                    all_others = [r for r in matched_rules if r[0]['code'] != best_rule['code']]
-                    result['alternatives'] = [
-                        {
-                            'code': rule['code'],
-                            'name': rule['name'],
-                            'match_ratio': ratio
-                        }
-                        for rule, ratio in all_others[:5]
-                        if ratio >= 0.7
-                    ]
-                
-                return result
+        # Кэшируем только для иерархического подхода
+        cache_key = f"hierarchical:{text}" if use_hierarchical else f"classic:{text}"
+        
+        if cache_key in self.cache:
+            return self.cache[cache_key]
 
         features = feature_extractor.extract_features(text)
 
@@ -213,8 +161,12 @@ class InferenceEngine:
                 if ratio >= 0.7
             ]
         elif not use_hierarchical and matched_rules:
-            # Классический подход: лучшее правило по match_ratio
-            best_rule, best_ratio = max(matched_rules, key=lambda x: x[1])
+            # Классический подход: лучшее правило по match_ratio, 
+            # а при одинаковом match_ratio - по уровню специфичности (level)
+            best_rule, best_ratio = max(
+                matched_rules, 
+                key=lambda x: (x[1], x[0]['level'])  # Сначала по match_ratio, потом по level
+            )
             
             result['best_match'] = {
                 'code': best_rule['code'],
@@ -237,8 +189,9 @@ class InferenceEngine:
                 if ratio >= 0.7
             ]
 
+        # Кэшируем результат только для иерархического подхода
         if use_hierarchical:
-            self.cache[text] = result
+            self.cache[cache_key] = result
             
         return result
 
