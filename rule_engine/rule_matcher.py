@@ -49,7 +49,18 @@ class RuleMatcher:
             if 'attributes' in features and attr_name in features['attributes']:
                 attr_value = features['attributes'][attr_name]
             elif attr_name == "is_instance_of":
-                attr_value = features['vessel_type']
+                # Сначала проверяем vessel_type
+                attr_value = features.get('vessel_type')
+                
+                # Если правило требует "пассажирское" или "Пассажирское", 
+                # также проверяем атрибут purpose как fallback
+                expected_value = condition.get('value')
+                if expected_value and isinstance(expected_value, str):
+                    expected_lower = expected_value.lower()
+                    if expected_lower in ['пассажирское', 'passengerboat', 'passenger']:
+                        # Проверяем, есть ли в attributes purpose='пассажирское'
+                        if 'attributes' in features and features['attributes'].get('purpose') == 'пассажирское':
+                            attr_value = 'пассажирское'
 
             if attr_value is None:
                 if condition['operator'] in ['not_exists', 'not_equals', 'not_in']:
@@ -64,7 +75,50 @@ class RuleMatcher:
                 raise ValueError(f"Неизвестный оператор: {op_name}")
 
             expected_value = condition.get('value')
-
+            
+            # Нормализуем сравнение для строковых значений (регистронезависимое)
+            if isinstance(attr_value, str) and isinstance(expected_value, str):
+                # Для is_instance_of с значением "Пассажирское" сравниваем регистронезависимо
+                if attr_name == 'is_instance_of':
+                    if attr_value.lower() == expected_value.lower():
+                        return True
+            
+            # Для оператора 'in' проверяем, является ли attr_value подтипом ожидаемого значения
+            # Например, PassengerBoat должен совпадать с Ship, Boat, Vessel
+            if op_name == 'in' and attr_name == 'is_instance_of':
+                if isinstance(expected_value, (list, set, tuple)):
+                    # Проверяем точное совпадение
+                    if attr_value in expected_value:
+                        return True
+                    # Проверяем иерархию типов
+                    type_hierarchy = {
+                        'PassengerBoat': 'Ship',
+                        'Tanker': 'Ship',
+                        'GasCarrier': 'Ship',
+                        'RefrigeratorShip': 'Ship',
+                        'DryCargoBoat': 'Ship',
+                        'ContainerShip': 'Ship',
+                        'BulkCarrier': 'Ship',
+                        'FishingBoat': 'Ship',
+                        'FishingFactory': 'Ship',
+                        'TugBoat': 'Ship',
+                        'Dredger': 'Ship',
+                        'SpecialBoat': 'Ship',
+                        'TimberCarrier': 'Ship',
+                        'Longliner': 'Ship',
+                        'Seiner': 'Ship',
+                        'Trawler': 'Ship',
+                        'Whaler': 'Ship',
+                        'Ferry': 'Ship',
+                        'RecreationalBoat': 'Boat',
+                    }
+                    base_type = type_hierarchy.get(attr_value)
+                    if base_type and base_type in expected_value:
+                        return True
+                    # Также проверяем Vessel как корневой тип для всех судов
+                    if attr_value in type_hierarchy and 'Vessel' in expected_value:
+                        return True
+            
             result = op_func(attr_value, expected_value)
             return result
         except Exception as e:
