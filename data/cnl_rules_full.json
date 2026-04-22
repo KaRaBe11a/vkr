@@ -150,7 +150,7 @@
               {
                 "attribute": "purpose",
                 "operator": "equals",
-                "value": "PassengerBoat"
+                "value": "пассажирские"
               },
               {
                 "attribute": "purpose",
@@ -234,7 +234,7 @@
           {
             "attribute": "purpose",
             "operator": "equals",
-            "value": "PassengerBoat"
+            "value": "пассажирские"
           }
         ],
         "description": "Объект является морским пассажирским судном"
@@ -476,10 +476,10 @@
             "attribute": "cargo_type",
             "operator": "in",
             "value": [
-              "нефть",
-              "нефтепродукты",
-              "химические_продукты",
-              "сжиженный_газ"
+              "нефти",
+              "нефтепродуктов",
+              "химических",
+              "сжиженных"
             ]
           }
         ],
@@ -507,7 +507,7 @@
           {
             "attribute": "cargo_type",
             "operator": "equals",
-            "value": "наливные"
+            "value": "нефти"
           }
         ],
         "description": "Объект является морским наливным судном"
@@ -535,14 +535,9 @@
             "attribute": "cargo_type",
             "operator": "in",
             "value": [
-              "нефть",
-              "нефтепродукты"
+              "нефти",
+              "нефтепродуктов"
             ]
-          },
-          {
-            "attribute": "specialization",
-            "operator": "equals",
-            "value": "танкеры"
           }
         ],
         "description": "Объект является морским танкером для нефти и нефтепродуктов"
